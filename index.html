@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fuera del Sistema — Entiende Bitcoin al pie de la letra</title>
+<meta name="description" content="Guía gratuita y a fondo: quién creó Bitcoin y por qué su anonimato importa, cómo funciona por dentro, su política monetaria, historial completo de precios, autocustodia y quién lo está acumulando en 2026." />
+
+<!-- Tailwind (CDN, sitio estático de una sola página) -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'media',
+    theme: {
+      extend: {
+        colors: {
+          ink: { 50:'#fafafa',100:'#f4f4f5',200:'#e4e4e7',300:'#d4d4d8',400:'#a1a1aa',500:'#71717a',600:'#52525b',700:'#3f3f46',800:'#27272a',900:'#18181b',950:'#0c0c0e' },
+          block: { 400:'#ffab47', 500:'#f7931a', 600:'#dd7c0a' },
+          wa: { 500:'#25D366', 600:'#1ebe57' }
+        },
+        maxWidth: { measure: '65ch' },
+        fontFamily: {
+          sans: ['-apple-system','BlinkMacSystemFont','Segoe UI','Roboto','Helvetica Neue','Arial','sans-serif']
+        }
+      }
+    }
+  }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { background:#fafafa; }
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1); }
+  .reveal.is-visible { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+  .step-line { background: repeating-linear-gradient(to bottom, #e4e4e7 0, #e4e4e7 6px, transparent 6px, transparent 12px); }
+</style>
+</head>
+<body class="bg-ink-50 text-ink-900 antialiased">
+
+<!-- NAV -->
+<header class="sticky top-0 z-40 bg-ink-50/90 backdrop-blur border-b border-ink-200">
+  <div class="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-2.5">
+      <img src="logo-dark-text.png" alt="Fuera del Sistema, por Andrés Crypto" class="h-7 w-auto" />
+      <span class="hidden sm:flex flex-col leading-none">
+        <span class="font-semibold tracking-tight text-ink-900 text-sm">Fuera del Sistema</span>
+        <span class="text-[11px] text-ink-500">por Andrés Crypto</span>
+      </span>
+    </a>
+    <a href="#guia-form" class="rounded-full bg-block-500 hover:bg-block-600 text-ink-950 text-sm font-medium px-4 py-2 transition-colors">Ver la guía</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="top" class="max-w-6xl mx-auto px-5 pt-16 md:pt-20 pb-16">
+  <div class="grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <h1 class="text-4xl md:text-5xl font-semibold tracking-tight leading-[1.08] text-ink-950">
+        Entiende Bitcoin al pie de la letra
+      </h1>
+      <p class="mt-5 text-lg text-ink-600 leading-relaxed max-w-measure">
+        Quién lo creó y por qué su anonimato importa, cómo funciona por dentro, su política monetaria programada, su historial completo de precios y quién lo está acumulando hoy. Sin resúmenes de redes sociales — la guía completa.
+      </p>
+      <div class="mt-7 flex flex-wrap items-center gap-4">
+        <a href="#guia-form" class="rounded-full bg-block-500 hover:bg-block-600 text-ink-950 font-medium px-6 py-3.5 transition-colors">Quiero la guía gratis</a>
+        <span class="text-sm text-ink-500">20 minutos de lectura. Sin tecnicismos innecesarios.</span>
+      </div>
+    </div>
+    <div class="reveal">
+      <svg viewBox="0 0 460 340" class="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="460" height="340" rx="20" fill="#f4f4f5"/>
+        <text x="230" y="46" font-family="Arial" font-size="14" fill="#71717a" text-anchor="middle">Recompensa por bloque minado</text>
+        <line x1="55" y1="170" x2="405" y2="170" stroke="#d4d4d8" stroke-width="3"/>
+        <circle cx="55" cy="170" r="9" fill="#F7931A"/>
+        <circle cx="171" cy="170" r="9" fill="#F7931A"/>
+        <circle cx="287" cy="170" r="9" fill="#F7931A"/>
+        <circle cx="405" cy="170" r="9" fill="#18181b"/>
+        <text x="55" y="140" font-family="Arial" font-size="12" fill="#3f3f46" text-anchor="middle">2012</text>
+        <text x="171" y="140" font-family="Arial" font-size="12" fill="#3f3f46" text-anchor="middle">2016</text>
+        <text x="287" y="140" font-family="Arial" font-size="12" fill="#3f3f46" text-anchor="middle">2020</text>
+        <text x="405" y="140" font-family="Arial" font-size="12" fill="#3f3f46" text-anchor="middle">2024</text>
+        <text x="55" y="200" font-family="Arial" font-size="11" fill="#71717a" text-anchor="middle">50 BTC</text>
+        <text x="171" y="200" font-family="Arial" font-size="11" fill="#71717a" text-anchor="middle">25 BTC</text>
+        <text x="287" y="200" font-family="Arial" font-size="11" fill="#71717a" text-anchor="middle">12.5 BTC</text>
+        <text x="405" y="200" font-family="Arial" font-size="11" fill="#71717a" text-anchor="middle">3.125 BTC</text>
+        <rect x="55" y="250" width="350" height="46" rx="10" fill="#ffffff" stroke="#e4e4e7"/>
+        <text x="230" y="270" font-family="Arial" font-size="12" fill="#18181b" text-anchor="middle" font-weight="bold">21,000,000 BTC</text>
+        <text x="230" y="286" font-family="Arial" font-size="10" fill="#71717a" text-anchor="middle">suministro máximo — fijado en código desde 2009</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<section class="border-y border-ink-200 bg-white">
+  <div class="max-w-6xl mx-auto px-5 py-5 flex flex-wrap items-center justify-between gap-3 text-sm text-ink-600">
+    <span>Anónimo desde 2009</span>
+    <span class="hidden sm:inline">·</span>
+    <span>Suministro fijo: 21,000,000 BTC</span>
+    <span class="hidden sm:inline">·</span>
+    <span class="inline-flex items-center gap-2">Cómpralo en <img src="bingx-logo.png" alt="BingX" class="h-4 w-auto" /></span>
+  </div>
+</section>
+
+<!-- QUÉ VAS A APRENDER (teaser) -->
+<section class="max-w-6xl mx-auto px-5 py-20">
+  <h2 class="text-2xl md:text-3xl font-semibold tracking-tight text-ink-950 max-w-measure">Qué vas a aprender en la guía</h2>
+  <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    <div class="reveal rounded-2xl border border-ink-200 bg-white p-6 transition-transform hover:-translate-y-1 hover:shadow-md">
+      <div class="text-block-500 font-semibold text-sm mb-2">Tema 1</div>
+      <h3 class="font-medium text-ink-900">Origen y anonimato</h3>
+      <p class="mt-2 text-sm text-ink-600 leading-relaxed">Quién es Satoshi Nakamoto y por qué que nadie sepa quién es, es una ventaja, no un misterio sin resolver.</p>
+    </div>
+    <div class="reveal rounded-2xl border border-ink-200 bg-white p-6 transition-transform hover:-translate-y-1 hover:shadow-md">
+      <div class="text-block-500 font-semibold text-sm mb-2">Tema 2</div>
+      <h3 class="font-medium text-ink-900">Cómo funciona por dentro</h3>
+      <p class="mt-2 text-sm text-ink-600 leading-relaxed">Blockchain y prueba de trabajo, explicados sin necesitar título de ingeniería.</p>
+    </div>
+    <div class="reveal rounded-2xl border border-ink-200 bg-white p-6 transition-transform hover:-translate-y-1 hover:shadow-md">
+      <div class="text-block-500 font-semibold text-sm mb-2">Tema 3</div>
+      <h3 class="font-medium text-ink-900">Política monetaria y halvings</h3>
+      <p class="mt-2 text-sm text-ink-600 leading-relaxed">21 millones, los 4 halvings hasta hoy, y el software que se autorregula solo.</p>
+    </div>
+    <div class="reveal rounded-2xl border border-ink-200 bg-white p-6 transition-transform hover:-translate-y-1 hover:shadow-md">
+      <div class="text-block-500 font-semibold text-sm mb-2">Tema 4</div>
+      <h3 class="font-medium text-ink-900">Máximos, mínimos y ciclos</h3>
+      <p class="mt-2 text-sm text-ink-600 leading-relaxed">Historial completo de precios y el patrón de los 500 días alrededor del halving.</p>
+    </div>
+    <div class="reveal rounded-2xl border border-ink-200 bg-white p-6 transition-transform hover:-translate-y-1 hover:shadow-md">
+      <div class="text-block-500 font-semibold text-sm mb-2">Tema 5</div>
+      <h3 class="font-medium text-ink-900">Autocustodia</h3>
+      <p class="mt-2 text-sm text-ink-600 leading-relaxed">Por qué "not your keys, not your coins" es literal, no una frase de marketing.</p>
+    </div>
+    <div class="reveal rounded-2xl border border-ink-200 bg-white p-6 transition-transform hover:-translate-y-1 hover:shadow-md">
+      <div class="text-block-500 font-semibold text-sm mb-2">Tema 6</div>
+      <h3 class="font-medium text-ink-900">Quién lo acumula</h3>
+      <p class="mt-2 text-sm text-ink-600 leading-relaxed">Países, empresas y ETFs que ya tienen Bitcoin en su balance — con cifras reales.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FORMULARIO -->
+<section id="guia-form" class="bg-ink-950 text-ink-50">
+  <div class="max-w-6xl mx-auto px-5 py-20 grid md:grid-cols-2 gap-12 items-start">
+    <div class="reveal">
+      <h2 class="text-2xl md:text-3xl font-semibold tracking-tight leading-tight">Recibe la guía completa gratis</h2>
+      <p class="mt-4 text-ink-300 leading-relaxed max-w-measure">Déjanos tu WhatsApp y correo. Desbloqueas la guía al instante y te sumamos a un grupo donde resolvemos dudas.</p>
+      <p class="mt-6 text-sm text-ink-400">Cero spam. No compartimos tus datos con nadie.</p>
+    </div>
+
+    <form id="lead-form" class="reveal bg-white text-ink-900 rounded-2xl p-6 md:p-7 space-y-4">
+      <input type="hidden" name="solucion" value="Lead magnet: Bitcoin explicado a fondo" />
+      <div>
+        <label for="name" class="block text-sm font-medium text-ink-700 mb-1.5">Nombre</label>
+        <input id="name" name="name" type="text" required placeholder="Tu nombre"
+          class="w-full rounded-xl border border-ink-300 px-4 py-2.5 text-ink-900 placeholder:text-ink-400 focus:outline-none focus:ring-2 focus:ring-block-500 focus:border-block-500" />
+      </div>
+      <div>
+        <label for="whatsapp" class="block text-sm font-medium text-ink-700 mb-1.5">WhatsApp (con código de país)</label>
+        <input id="whatsapp" name="whatsapp" type="tel" required placeholder="+57 300 123 4567"
+          class="w-full rounded-xl border border-ink-300 px-4 py-2.5 text-ink-900 placeholder:text-ink-400 focus:outline-none focus:ring-2 focus:ring-block-500 focus:border-block-500" />
+        <p class="mt-1.5 text-xs text-ink-500">La usamos solo para invitarte al grupo y resolver dudas.</p>
+      </div>
+      <div>
+        <label for="email" class="block text-sm font-medium text-ink-700 mb-1.5">Correo</label>
+        <input id="email" name="email" type="email" required placeholder="tucorreo@email.com"
+          class="w-full rounded-xl border border-ink-300 px-4 py-2.5 text-ink-900 placeholder:text-ink-400 focus:outline-none focus:ring-2 focus:ring-block-500 focus:border-block-500" />
+      </div>
+      <div id="form-error" class="hidden text-sm text-red-600"></div>
+      <button type="submit" class="w-full rounded-full bg-block-500 hover:bg-block-600 text-ink-950 font-medium px-6 py-3.5 transition-colors">
+        Desbloquear guía
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- GUÍA COMPLETA (oculta hasta enviar el formulario) -->
+<section id="guia-completa" class="hidden max-w-6xl mx-auto px-5 py-20">
+
+  <div class="max-w-measure mb-14">
+    <h2 class="text-3xl font-semibold tracking-tight text-ink-950">La guía completa</h2>
+    <p class="mt-3 text-ink-600 leading-relaxed">Todo lo que necesitas para entender qué es Bitcoin, no solo cómo comprarlo.</p>
+  </div>
+
+  <!-- TEMA 1 -->
+  <article class="grid md:grid-cols-[auto_1fr] gap-6 md:gap-10 pb-14">
+    <div class="flex md:flex-col items-center md:items-center gap-3">
+      <div class="w-11 h-11 rounded-full bg-ink-950 text-white flex items-center justify-center font-semibold shrink-0">1</div>
+      <div class="hidden md:block w-px flex-1 step-line"></div>
+    </div>
+    <div class="reveal">
+      <h3 class="text-xl font-semibold text-ink-950">Quién creó Bitcoin y por qué el anonimato es una ventaja</h3>
+      <p class="mt-4 text-ink-700 leading-relaxed">Bitcoin nació el 31 de octubre de 2008, cuando alguien (o un grupo) bajo el seudónimo <span class="font-medium text-ink-900">Satoshi Nakamoto</span> publicó un documento de 9 páginas explicando cómo mover dinero entre dos personas sin necesitar un banco de por medio. El 3 de enero de 2009 se minó el primer bloque, el "bloque génesis". Satoshi siguió participando en el proyecto hasta 2010 y luego desapareció de internet — nunca reveló su identidad real, y pese a años de investigación periodística y hasta demandas judiciales, nadie ha podido probarlo.</p>
+      <p class="mt-4 text-ink-700 leading-relaxed">Esto no es un misterio sin resolver que le reste valor al proyecto — es, para muchos, la razón por la que Bitcoin funcionó donde miles de criptomonedas con fundadores conocidos fracasaron. Si Satoshi tuviera nombre y apellido, sería un punto único de presión: un gobierno podría citarlo, presionarlo o pedirle que cambie las reglas. Al no existir esa persona, la única autoridad es el código abierto —auditable por cualquiera— y el consenso de miles de nodos alrededor del mundo. Nadie "es" Bitcoin, y por eso nadie puede apagarlo, comprarlo ni negociarlo a puerta cerrada.</p>
+
+      <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_es_latam.pdf" target="_blank" rel="noopener" class="mt-5 inline-flex items-center gap-2 text-sm font-medium text-block-600 hover:text-block-500">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+        Leer el whitepaper original en español (PDF)
+      </a>
+
+      <div class="mt-6 grid grid-cols-3 gap-3">
+        <div class="reveal rounded-xl bg-white border border-ink-200 p-4 text-center transition-transform hover:-translate-y-1">
+          <div class="text-2xl font-semibold text-block-500">2008</div>
+          <div class="mt-1 text-[11px] text-ink-500 leading-tight">año del whitepaper</div>
+        </div>
+        <div class="reveal rounded-xl bg-white border border-ink-200 p-4 text-center transition-transform hover:-translate-y-1" style="transition-delay:.08s">
+          <div class="text-2xl font-semibold text-block-500">15+ años</div>
+          <div class="mt-1 text-[11px] text-ink-500 leading-tight">sin identidad confirmada</div>
+        </div>
+        <div class="reveal rounded-xl bg-white border border-ink-200 p-4 text-center transition-transform hover:-translate-y-1" style="transition-delay:.16s">
+          <div class="text-2xl font-semibold text-block-500">~1.1M BTC</div>
+          <div class="mt-1 text-[11px] text-ink-500 leading-tight">estimado en manos de Satoshi*</div>
+        </div>
+      </div>
+
+      <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="reveal rounded-xl border border-dashed border-ink-700 bg-ink-950 text-ink-50 p-5">
+          <div class="text-[11px] uppercase tracking-wide text-block-400 font-semibold mb-2">Compruébalo tú mismo ↗</div>
+          <h4 class="font-medium text-sm">La wallet del bloque génesis</h4>
+          <p class="mt-2 text-xs text-ink-300 leading-relaxed">La primera dirección de Bitcoin, minada por Satoshi el 3 de enero de 2009. Su recompensa original de 50 BTC quedó bloqueada por un detalle del código — nunca se pudo gastar. Desde entonces, miles de personas le han enviado donaciones simbólicas.</p>
+          <code class="mt-3 block text-[11px] bg-black/30 rounded-lg px-3 py-2 break-all">1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa</code>
+          <a href="https://www.blockchain.com/explorer/addresses/btc/1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa" target="_blank" rel="noopener" class="mt-3 inline-flex items-center gap-1 text-xs text-block-400 hover:text-block-300">Ver en el explorador de bloques ↗</a>
+        </div>
+        <div class="reveal rounded-xl border border-dashed border-ink-700 bg-ink-950 text-ink-50 p-5" style="transition-delay:.08s">
+          <div class="text-[11px] uppercase tracking-wide text-block-400 font-semibold mb-2">Compruébalo tú mismo ↗</div>
+          <h4 class="font-medium text-sm">La pizza de 10,000 BTC</h4>
+          <p class="mt-2 text-xs text-ink-300 leading-relaxed">El 22 de mayo de 2010, Laszlo Hanyecz pagó 10,000 BTC (~US$41 en ese momento) por dos pizzas de Papa John's — la primera compra real con Bitcoin, registrada en el bloque 57,043. Hoy esos mismos bitcoins valdrían más de US$640 millones.</p>
+          <code class="mt-3 block text-[11px] bg-black/30 rounded-lg px-3 py-2 break-all">17SkEw2md5avVNyYgj6RiXuQKNwkXaxFyQ</code>
+          <a href="https://www.blockchain.com/explorer/transactions/btc/a1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d" target="_blank" rel="noopener" class="mt-3 inline-flex items-center gap-1 text-xs text-block-400 hover:text-block-300">Ver la transacción en el explorador ↗</a>
+        </div>
+        <div class="reveal rounded-xl border border-dashed border-ink-700 bg-ink-950 text-ink-50 p-5" style="transition-delay:.16s">
+          <div class="text-[11px] uppercase tracking-wide text-block-400 font-semibold mb-2">Compruébalo tú mismo ↗</div>
+          <h4 class="font-medium text-sm">El clúster estimado de Satoshi</h4>
+          <p class="mt-2 text-xs text-ink-300 leading-relaxed">No es una sola wallet: analistas on-chain agruparon miles de direcciones minadas entre 2009 y 2010 (el "Patoshi pattern") que se atribuyen a Satoshi, con ~1.1 millones de BTC en total — sin moverse desde entonces. Arkham Intelligence rastrea este clúster en vivo.</p>
+          <a href="https://arkm.com/explorer/entity/satoshi-nakamoto" target="_blank" rel="noopener" class="mt-3 inline-flex items-center gap-1 text-xs text-block-400 hover:text-block-300">Ver el clúster completo ↗</a>
+        </div>
+      </div>
+      <p class="mt-3 text-[11px] text-ink-400 leading-relaxed">La atribución a Satoshi es un análisis heurístico de patrones de minado, no una confirmación de identidad. En 2024 y 2025 sí se movieron otras wallets "de la misma era" pertenecientes a otros mineros tempranos — no confirmadas como de Satoshi.</p>
+    </div>
+  </article>
+
+  <!-- TEMA 2 -->
+  <article class="grid md:grid-cols-[auto_1fr] gap-6 md:gap-10 pb-14">
+    <div class="flex md:flex-col items-center md:items-center gap-3">
+      <div class="w-11 h-11 rounded-full bg-ink-950 text-white flex items-center justify-center font-semibold shrink-0">2</div>
+      <div class="hidden md:block w-px flex-1 step-line"></div>
+    </div>
+    <div class="reveal">
+      <h3 class="text-xl font-semibold text-ink-950">Cómo funciona por dentro</h3>
+      <p class="mt-4 text-ink-700 leading-relaxed">Bitcoin es una base de datos compartida (blockchain) que miles de computadoras ("nodos") alrededor del mundo mantienen actualizada de forma idéntica, sin que exista un servidor central que apagar. Cada ~10 minutos se agrupan las transacciones más recientes en un "bloque", y ese bloque queda enlazado matemáticamente al anterior — de ahí "cadena de bloques". Alterar una transacción de hace un año significaría rehacer todos los bloques posteriores en todos los nodos del mundo al mismo tiempo: computacionalmente imposible.</p>
+      <p class="mt-4 text-ink-700 leading-relaxed">Para decidir quién agrega el siguiente bloque, la red usa <span class="font-medium text-ink-900">Prueba de Trabajo (Proof of Work)</span> con el algoritmo SHA-256: miles de mineros compiten resolviendo un acertijo criptográfico por fuerza bruta. El primero en encontrar la solución gana el derecho a añadir el bloque y se lleva la recompensa. Hacer trampa cuesta más energía y dinero del que se podría ganar haciéndola — por diseño.</p>
+      <svg viewBox="0 0 500 150" class="mt-6 w-full max-w-xl h-auto" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="500" height="150" rx="14" fill="#f4f4f5"/>
+        <rect x="20" y="40" width="90" height="65" rx="8" fill="#ffffff" stroke="#e4e4e7"/>
+        <text x="65" y="58" font-family="Arial" font-size="10" fill="#18181b" text-anchor="middle" font-weight="bold">Bloque #1</text>
+        <rect x="32" y="66" width="66" height="6" rx="3" fill="#e4e4e7"/>
+        <rect x="32" y="78" width="50" height="6" rx="3" fill="#e4e4e7"/>
+        <rect x="32" y="90" width="40" height="6" rx="3" fill="#F7931A"/>
+        <polygon points="112,70 132,73 112,76" fill="#a1a1aa"/>
+        <rect x="150" y="40" width="90" height="65" rx="8" fill="#ffffff" stroke="#e4e4e7"/>
+        <text x="195" y="58" font-family="Arial" font-size="10" fill="#18181b" text-anchor="middle" font-weight="bold">Bloque #2</text>
+        <rect x="162" y="66" width="66" height="6" rx="3" fill="#e4e4e7"/>
+        <rect x="162" y="78" width="50" height="6" rx="3" fill="#e4e4e7"/>
+        <rect x="162" y="90" width="40" height="6" rx="3" fill="#F7931A"/>
+        <polygon points="242,70 262,73 242,76" fill="#a1a1aa"/>
+        <rect x="280" y="40" width="90" height="65" rx="8" fill="#ffffff" stroke="#e4e4e7"/>
+        <text x="325" y="58" font-family="Arial" font-size="10" fill="#18181b" text-anchor="middle" font-weight="bold">Bloque #3</text>
+        <rect x="292" y="66" width="66" height="6" rx="3" fill="#e4e4e7"/>
+        <rect x="292" y="78" width="50" height="6" rx="3" fill="#e4e4e7"/>
+        <rect x="292" y="90" width="40" height="6" rx="3" fill="#F7931A"/>
+        <polygon points="372,70 392,73 372,76" fill="#a1a1aa"/>
+        <rect x="410" y="40" width="70" height="65" rx="8" fill="#18181b"/>
+        <text x="445" y="58" font-family="Arial" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="bold">Bloque #4</text>
+        <rect x="420" y="66" width="50" height="6" rx="3" fill="#52525b"/>
+        <rect x="420" y="78" width="38" height="6" rx="3" fill="#52525b"/>
+        <rect x="420" y="90" width="30" height="6" rx="3" fill="#F7931A"/>
+        <text x="250" y="128" font-family="Arial" font-size="10" fill="#71717a" text-anchor="middle">Cada bloque incluye el "hash" (huella digital) del bloque anterior — por eso es una cadena</text>
+      </svg>
+    </div>
+  </article>
+
+  <!-- TEMA 3 -->
+  <article class="grid md:grid-cols-[auto_1fr] gap-6 md:gap-10 pb-14">
+    <div class="flex md:flex-col items-center md:items-center gap-3">
+      <div class="w-11 h-11 rounded-full bg-ink-950 text-white flex items-center justify-center font-semibold shrink-0">3</div>
+      <div class="hidden md:block w-px flex-1 step-line"></div>
+    </div>
+    <div class="reveal">
+      <h3 class="text-xl font-semibold text-ink-950">Política monetaria programada: 21 millones y los 4 halvings</h3>
+      <p class="mt-4 text-ink-700 leading-relaxed">A diferencia del dólar, el peso o el euro —donde un banco central decide cuánto dinero nuevo imprimir—, la emisión de Bitcoin está fijada en el código desde 2009 y nadie puede cambiarla sin el consenso de toda la red, algo que en la práctica nunca ha ocurrido ni se espera que ocurra. Solo existirán <span class="font-medium text-ink-900">21,000,000 de bitcoins</span>, y se conoce hoy con exactitud cuántos habrá en circulación en cualquier fecha futura, hasta el año 2140, cuando se emita el último satoshi.</p>
+
+      <div class="mt-6 grid grid-cols-3 gap-3">
+        <div class="rounded-xl bg-white border border-ink-200 p-4 text-center">
+          <div class="text-2xl font-semibold text-block-500">21M</div>
+          <div class="mt-1 text-[11px] text-ink-500 leading-tight">suministro máximo</div>
+        </div>
+        <div class="rounded-xl bg-white border border-ink-200 p-4 text-center">
+          <div class="text-2xl font-semibold text-block-500">~10 min</div>
+          <div class="mt-1 text-[11px] text-ink-500 leading-tight">por bloque, siempre</div>
+        </div>
+        <div class="rounded-xl bg-white border border-ink-200 p-4 text-center">
+          <div class="text-2xl font-semibold text-block-500">2140</div>
+          <div class="mt-1 text-[11px] text-ink-500 leading-tight">último satoshi emitido</div>
+        </div>
+      </div>
+
+      <p class="mt-6 text-ink-700 leading-relaxed">Cada 210,000 bloques (~4 años), la recompensa que reciben los mineros por bloque se reduce a la mitad — el <span class="font-medium text-ink-900">halving</span>. Así ha sido hasta ahora:</p>
+      <div class="mt-5 grid grid-cols-2 sm:grid-cols-5 gap-3">
+        <div class="reveal rounded-xl bg-white border border-ink-200 p-4 text-center transition-transform hover:-translate-y-1">
+          <div class="text-[11px] text-ink-500">28 nov 2012</div>
+          <div class="mt-2 text-sm font-semibold text-ink-900">50 → 25</div>
+          <div class="text-[10px] text-ink-400">BTC / bloque</div>
+        </div>
+        <div class="reveal rounded-xl bg-white border border-ink-200 p-4 text-center transition-transform hover:-translate-y-1" style="transition-delay:.06s">
+          <div class="text-[11px] text-ink-500">9 jul 2016</div>
+          <div class="mt-2 text-sm font-semibold text-ink-900">25 → 12.5</div>
+          <div class="text-[10px] text-ink-400">BTC / bloque</div>
+        </div>
+        <div class="reveal rounded-xl bg-white border border-ink-200 p-4 text-center transition-transform hover:-translate-y-1" style="transition-delay:.12s">
+          <div class="text-[11px] text-ink-500">11 may 2020</div>
+          <div class="mt-2 text-sm font-semibold text-ink-900">12.5 → 6.25</div>
+          <div class="text-[10px] text-ink-400">BTC / bloque</div>
+        </div>
+        <div class="reveal rounded-xl bg-white border border-ink-200 p-4 text-center transition-transform hover:-translate-y-1" style="transition-delay:.18s">
+          <div class="text-[11px] text-ink-500">20 abr 2024</div>
+          <div class="mt-2 text-sm font-semibold text-ink-900">6.25 → 3.125</div>
+          <div class="text-[10px] text-ink-400">BTC / bloque</div>
+        </div>
+        <div class="reveal rounded-xl bg-ink-50 border border-dashed border-ink-300 p-4 text-center transition-transform hover:-translate-y-1" style="transition-delay:.24s">
+          <div class="text-[11px] text-ink-400">~2028 (estimado)</div>
+          <div class="mt-2 text-sm font-semibold text-ink-500">3.125 → 1.5625</div>
+          <div class="text-[10px] text-ink-400">BTC / bloque</div>
+        </div>
+      </div>
+
+      <p class="mt-6 text-ink-700 leading-relaxed">Hay otra pieza de software que muchos pasan por alto: la <span class="font-medium text-ink-900">dificultad de minado se reajusta sola</span> cada 2,016 bloques (~2 semanas) para que, sin importar cuántos mineros entren o salgan de la red, un bloque nuevo siga tardando ~10 minutos en promedio. Nadie decide manualmente cuánto Bitcoin se emite cada día — lo decide un algoritmo que se autorregula, igual para todos, en cualquier país.</p>
+    </div>
+  </article>
+
+  <!-- TEMA 4 -->
+  <article class="grid md:grid-cols-[auto_1fr] gap-6 md:gap-10 pb-14">
+    <div class="flex md:flex-col items-center md:items-center gap-3">
+      <div class="w-11 h-11 rounded-full bg-ink-950 text-white flex items-center justify-center font-semibold shrink-0">4</div>
+      <div class="hidden md:block w-px flex-1 step-line"></div>
+    </div>
+    <div class="reveal">
+      <h3 class="text-xl font-semibold text-ink-950">Precio: máximos, mínimos y el patrón de los 500 días</h3>
+      <p class="mt-4 text-ink-700 leading-relaxed">Bitcoin ha pasado por 4 ciclos completos de halving, y en los 4 el precio se comportó de forma parecida: cae fuerte, toca un mínimo, y luego sube mucho más de lo que había caído.</p>
+
+      <div class="mt-6 grid grid-cols-3 gap-3">
+        <div class="rounded-xl bg-white border border-ink-200 p-4 text-center">
+          <div class="text-2xl font-semibold text-block-500">$126,198</div>
+          <div class="mt-1 text-[11px] text-ink-500 leading-tight">máximo histórico (6 oct 2025)</div>
+        </div>
+        <div class="rounded-xl bg-white border border-ink-200 p-4 text-center">
+          <div class="text-2xl font-semibold text-ink-900">~$64,000</div>
+          <div class="mt-1 text-[11px] text-ink-500 leading-tight">precio actual (ago 2026)</div>
+        </div>
+        <div class="rounded-xl bg-white border border-ink-200 p-4 text-center">
+          <div class="text-2xl font-semibold text-ink-500">-49%</div>
+          <div class="mt-1 text-[11px] text-ink-500 leading-tight">desde el máximo histórico</div>
+        </div>
+      </div>
+
+      <div class="mt-6 rounded-xl bg-white border border-ink-200 p-5">
+        <div class="space-y-3">
+          <div>
+            <div class="flex justify-between text-xs text-ink-600 mb-1"><span>2013 — techo del 1er ciclo</span><span class="font-medium text-ink-900">$1,075</span></div>
+            <div class="h-2.5 rounded-full bg-ink-100"><div class="reveal h-2.5 rounded-full bg-block-400" style="width:15%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs text-ink-600 mb-1"><span>dic 2017 — techo del 2do ciclo</span><span class="font-medium text-ink-900">$19,783</span></div>
+            <div class="h-2.5 rounded-full bg-ink-100"><div class="reveal h-2.5 rounded-full bg-block-400" style="width:55%;transition-delay:.06s"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs text-ink-600 mb-1"><span>nov 2021 — techo del 3er ciclo</span><span class="font-medium text-ink-900">$68,789</span></div>
+            <div class="h-2.5 rounded-full bg-ink-100"><div class="reveal h-2.5 rounded-full bg-block-400" style="width:82%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs text-ink-600 mb-1"><span>oct 2025 — máximo histórico</span><span class="font-medium text-ink-900">$126,198</span></div>
+            <div class="h-2.5 rounded-full bg-ink-100"><div class="reveal h-2.5 rounded-full bg-block-500" style="width:100%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs text-ink-600 mb-1"><span>hoy — ago 2026</span><span class="font-medium text-ink-900">~$64,000</span></div>
+            <div class="h-2.5 rounded-full bg-ink-100"><div class="reveal h-2.5 rounded-full bg-ink-900" style="width:78%"></div></div>
+          </div>
+        </div>
+        <p class="mt-4 text-[11px] text-ink-400">Barras a escala aproximada (no lineal), solo para visualizar el crecimiento entre ciclos — no es una gráfica de trading.</p>
+      </div>
+      <p class="mt-4 text-sm text-ink-500 leading-relaxed">También hubo mínimos duros en el camino: $0.0008 en 2009 (mínimo histórico), $2 en 2011, $200 en 2015, $3,200 en 2018 y $15,479 en 2022 — siempre antes de un nuevo máximo.</p>
+
+      <p class="mt-5 text-ink-700 leading-relaxed">Un patrón que se repitió en los 4 ciclos se conoce como <span class="font-medium text-ink-900">la regla de los 500 días</span>, popularizada por la firma Pantera Capital: históricamente, el mínimo de cada ciclo se formó entre 480 y 500 días antes del halving, y el máximo del ciclo siguiente entre 480 y 535 días después. En el ciclo más reciente se cumplió de nuevo: el techo llegó el 6 de octubre de 2025, exactamente 535 días después del halving de abril de 2024, dentro del rango histórico.</p>
+      <svg viewBox="0 0 500 170" class="mt-6 w-full max-w-xl h-auto" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="500" height="170" rx="14" fill="#f4f4f5"/>
+        <line x1="40" y1="90" x2="460" y2="90" stroke="#d4d4d8" stroke-width="3"/>
+        <circle cx="90" cy="90" r="8" fill="#18181b"/>
+        <text x="90" y="70" font-family="Arial" font-size="11" fill="#18181b" text-anchor="middle" font-weight="bold">Mínimo de ciclo</text>
+        <text x="90" y="115" font-family="Arial" font-size="10" fill="#71717a" text-anchor="middle">~480-500 días antes</text>
+        <circle cx="250" cy="90" r="10" fill="#F7931A"/>
+        <text x="250" y="70" font-family="Arial" font-size="11" fill="#18181b" text-anchor="middle" font-weight="bold">Halving</text>
+        <text x="250" y="115" font-family="Arial" font-size="10" fill="#71717a" text-anchor="middle">recompensa ÷2</text>
+        <circle cx="410" cy="90" r="8" fill="#18181b"/>
+        <text x="410" y="70" font-family="Arial" font-size="11" fill="#18181b" text-anchor="middle" font-weight="bold">Máximo de ciclo</text>
+        <text x="410" y="115" font-family="Arial" font-size="10" fill="#71717a" text-anchor="middle">~480-535 días después</text>
+        <text x="250" y="150" font-family="Arial" font-size="10" fill="#a1a1aa" text-anchor="middle">Patrón observado en los 4 ciclos anteriores</text>
+      </svg>
+      <div class="mt-5 rounded-xl border-l-4 border-block-500 bg-white p-4">
+        <p class="text-sm text-ink-700 leading-relaxed"><span class="font-medium text-ink-900">Importante:</span> esto es un patrón histórico observado, no una ley garantizada ni una fecha para comprar o vender. Se cumplió 4 veces seguidas, pero varios analistas advierten que la llegada de los ETFs institucionales de Bitcoin —que mueven el mercado distinto a como lo hacían los inversionistas minoristas en ciclos anteriores— podría romper el patrón esta vez. Tómalo como contexto histórico, no como asesoría de inversión.</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- TEMA 5 -->
+  <article class="grid md:grid-cols-[auto_1fr] gap-6 md:gap-10 pb-14">
+    <div class="flex md:flex-col items-center md:items-center gap-3">
+      <div class="w-11 h-11 rounded-full bg-ink-950 text-white flex items-center justify-center font-semibold shrink-0">5</div>
+      <div class="hidden md:block w-px flex-1 step-line"></div>
+    </div>
+    <div class="reveal">
+      <h3 class="text-xl font-semibold text-ink-950">Autocustodia: por qué "not your keys, not your coins" es literal</h3>
+      <p class="mt-4 text-ink-700 leading-relaxed">Bitcoin fue diseñado para que nadie pueda confiscar tus fondos sin tu clave privada — pero esa protección solo existe si tú mismo controlas esa clave. Cuando compras Bitcoin y lo dejas en un exchange, lo que realmente tienes es una promesa contable de que la plataforma te lo entregará si se lo pides, no el Bitcoin en sí. Si el exchange es hackeado, congela retiros por orden judicial, o quiebra (como pasó con FTX en 2022), tu saldo puede quedar atrapado o perderse, sin que hayas hecho nada mal.</p>
+      <p class="mt-4 text-ink-700 leading-relaxed">La única forma de que "nadie puede confiscarlo" sea real es moverlo a una wallet donde tú —y solo tú— tengas la frase de recuperación, operándolo de forma nativa: retirando del exchange a una dirección que controlas, no dejándolo ahí "por si acaso". Ya cubrimos paso a paso cómo hacerlo en nuestra <a href="https://seguridad-trezor.vercel.app" target="_blank" rel="noopener" class="text-block-600 underline underline-offset-2">guía de seguridad y wallets frías</a>, incluyendo cómo comprar tu dispositivo y mover los fondos sin errores.</p>
+    </div>
+  </article>
+
+  <!-- TEMA 6 -->
+  <article class="grid md:grid-cols-[auto_1fr] gap-6 md:gap-10 pb-6">
+    <div class="flex md:flex-col items-center md:items-center gap-3">
+      <div class="w-11 h-11 rounded-full bg-ink-950 text-white flex items-center justify-center font-semibold shrink-0">6</div>
+    </div>
+    <div class="reveal">
+      <h3 class="text-xl font-semibold text-ink-950">Quién lo está acumulando: países, empresas y ETFs</h3>
+      <p class="mt-4 text-ink-700 leading-relaxed">Bitcoin ya no es solo un activo de particulares. Tres tipos de actores institucionales acumulan a gran escala:</p>
+      <div class="mt-5 grid sm:grid-cols-3 gap-4">
+        <div class="reveal rounded-xl border border-ink-200 bg-white p-5 transition-transform hover:-translate-y-1">
+          <h4 class="font-medium text-ink-900 text-sm mb-2">Países</h4>
+          <p class="text-sm text-ink-600 leading-relaxed">7 naciones ya tienen reserva estratégica: 🇸🇻 <a href="https://bitcoin.gob.sv/" target="_blank" rel="noopener" class="text-block-600 underline underline-offset-2">El Salvador</a> (~7,600 BTC, moneda legal desde 2021), 🇺🇸 <a href="https://arkm.com/explorer/entity/us-government" target="_blank" rel="noopener" class="text-block-600 underline underline-offset-2">EE.UU.</a> (~325,000 BTC, reserva formalizada en marzo 2026, mayormente de incautaciones judiciales), 🇧🇹 Bután, 🇵🇰 Pakistán, 🇦🇪 EAU, 🇨🇿 República Checa y 🇧🇷 Brasil (con proyecto de ley para acumular hasta 1M de BTC).</p>
+        </div>
+        <div class="reveal rounded-xl border border-ink-200 bg-white p-5 transition-transform hover:-translate-y-1" style="transition-delay:.08s">
+          <h4 class="font-medium text-ink-900 text-sm mb-2">Empresas</h4>
+          <p class="text-sm text-ink-600 leading-relaxed">Strategy (antes MicroStrategy) es la mayor tenedora corporativa del mundo. Le siguen Metaplanet, MARA y otras. Las 100 mayores tesorerías corporativas suman 1.26 millones de BTC — ~6% de todo el Bitcoin que existirá jamás.</p>
+        </div>
+        <div class="reveal rounded-xl border border-ink-200 bg-white p-5 transition-transform hover:-translate-y-1" style="transition-delay:.16s">
+          <h4 class="font-medium text-ink-900 text-sm mb-2">ETFs</h4>
+          <p class="text-sm text-ink-600 leading-relaxed">Desde 2024 cualquiera puede comprar exposición a Bitcoin en bolsa sin tocar cripto. El IBIT de BlackRock por sí solo custodia más de 750,000 BTC — cerca de la mitad de todo el dinero en ETFs de Bitcoin en EE.UU.</p>
+        </div>
+      </div>
+      <p class="mt-5 text-ink-700 leading-relaxed">Nada de esto garantiza que el precio suba — pero sí confirma que la tesis de "activo digital escaso, controlado por software, sin banco central" ya convenció a gobiernos, empresas públicas y a los mayores gestores de fondos del mundo para acumularlo activamente. Si quieres profundizar en las empresas cripto que cotizan en bolsa y sus riesgos reales, tenemos una guía aparte con esa debida diligencia.</p>
+
+      <div class="mt-8 rounded-2xl bg-ink-950 text-ink-50 p-6 md:p-8">
+        <div class="text-[11px] uppercase tracking-wide text-block-400 font-semibold mb-2">Para cerrar</div>
+        <h4 class="text-lg font-semibold">¿Y hacia dónde podría ir el precio entre 2030 y 2035?</h4>
+        <p class="mt-3 text-sm text-ink-300 leading-relaxed">Varias casas de análisis institucional han publicado proyecciones de largo plazo que van entre los US$500,000 y el millón de dólares por Bitcoin hacia el final de esta década: Standard Chartered proyecta US$500,000 para 2030 (apoyado en la adopción de ETFs y en que Bitcoin capture parte del mercado del oro), ARK Invest maneja un escenario base de US$710,000 y uno optimista de US$1.5 millones para 2030, y Bernstein habla de US$1 millón hacia 2033.</p>
+        <p class="mt-3 text-sm text-ink-300 leading-relaxed">Son eso: proyecciones, hechas por analistas con intereses propios en el sector, basadas en supuestos sobre adopción, regulación y macroeconomía que pueden no cumplirse — y este tipo de pronósticos de largo plazo han fallado antes, en ambas direcciones. Nada aquí es una promesa ni una recomendación de inversión. Lo único verificable hoy es lo que ya viste en esta guía: una oferta fija de 21 millones, una emisión que se reduce sola cada 4 años, y una base cada vez más amplia de países, empresas y fondos acumulándolo activamente. Lo que pase con el precio, decídelo con tu propio criterio.</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- ¿TODAVÍA NO SABES POR DÓNDE EMPEZAR? -->
+  <div class="reveal mt-6 rounded-2xl border-l-4 border-block-500 bg-white p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
+    <div>
+      <h4 class="font-semibold text-ink-950">¿Todavía no sabes por dónde empezar?</h4>
+      <p class="mt-2 text-sm text-ink-600 leading-relaxed max-w-measure">Si quieres comprar tu primer Bitcoin con la mejor estrategia (DCA), tenemos un tutorial gratuito, paso a paso, para que no cometas errores en tu primera compra.</p>
+    </div>
+    <a href="https://leed-magnet-dca.vercel.app" target="_blank" rel="noopener"
+      class="shrink-0 rounded-full bg-block-500 hover:bg-block-600 text-ink-950 font-medium px-6 py-3.5 text-center transition-colors whitespace-nowrap">Ver el tutorial de compra</a>
+  </div>
+
+  <!-- CTA FINAL -->
+  <div class="reveal mt-6 rounded-2xl bg-ink-950 text-white p-8 md:p-10 grid md:grid-cols-2 gap-8 items-center">
+    <div>
+      <img src="logo.png" alt="Fuera del Sistema, por Andrés Crypto" class="h-8 w-auto mb-4" />
+      <h3 class="text-2xl font-semibold tracking-tight">Ahora que lo entiendes, da el siguiente paso</h3>
+      <p class="mt-3 text-ink-300 leading-relaxed">Cómpralo con nuestro enlace, asegúralo en una wallet fría, y únete al grupo de WhatsApp para resolver dudas.</p>
+    </div>
+    <div class="flex flex-col items-stretch md:items-end gap-3">
+      <div class="flex items-center gap-2 text-xs text-ink-400 md:justify-end">
+        <span>Vas a registrarte en</span>
+        <img src="bingx-logo.png" alt="BingX" class="h-3.5 w-auto" />
+      </div>
+      <div class="flex flex-col sm:flex-row gap-3">
+        <a href="https://bingxdao.com/invite/OQ6LS46Y/" target="_blank" rel="noopener"
+          class="rounded-full bg-block-500 hover:bg-block-600 text-ink-950 font-medium px-6 py-3.5 text-center transition-colors">Abrir mi cuenta en BingX</a>
+        <a href="https://affil.trezor.io/aff_c?offer_id=352&aff_id=36431" target="_blank" rel="noopener"
+          class="rounded-full bg-white hover:bg-ink-100 text-ink-950 font-medium px-6 py-3.5 text-center transition-colors">Proteger mi Bitcoin con Trezor</a>
+        <a id="wa-group-link" href="https://chat.whatsapp.com/DHSCiuTFOz4G2jZJzpzwqA?s=cl&p=i&mlu=0" target="_blank" rel="noopener"
+          class="rounded-full bg-wa-500 hover:bg-wa-600 text-ink-950 font-medium px-6 py-3.5 text-center transition-colors">Unirme al grupo de WhatsApp</a>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t border-ink-200 mt-10">
+  <div class="max-w-6xl mx-auto px-5 py-10">
+    <p class="text-xs text-ink-500 leading-relaxed max-w-3xl">
+      Contenido educativo, no es asesoría financiera. Los patrones históricos de precio mencionados en esta guía (incluyendo la "regla de los 500 días") son observaciones del pasado, no garantías de resultados futuros. Comprar y operar criptomonedas implica riesgo, incluyendo la posible pérdida total de tu capital. Investiga y decide bajo tu propio criterio. Este sitio incluye enlaces de referido de BingX y de Trezor: si te registras o compras a través de ellos, podemos recibir una comisión sin costo adicional para ti.
+    </p>
+    <div class="mt-6 flex items-center gap-2">
+      <img src="logo-dark-text.png" alt="Fuera del Sistema, por Andrés Crypto" class="h-6 w-auto" />
+    </div>
+    <p class="mt-3 text-xs text-ink-400">© <span id="year"></span> Fuera del Sistema · por Andrés Crypto</p>
+  </div>
+</footer>
+
+<script>
+  // ---- CONFIGURACIÓN (reemplazar antes de publicar) ----
+  const CONFIG = {
+    // URL del Google Apps Script desplegado como "Aplicación web" (termina en /exec).
+    // Cada envío del formulario cae como fila nueva en tu Google Sheet de leads.
+    formEndpoint: "https://script.google.com/macros/s/AKfycbxSRabN74_A8YCuArPK853zV7o_YQWi6kl4ZQqBbFbJ_WWHQCn9uKtbjQsKmbzovKWP/exec",
+    // Enlace de invitación a tu grupo/comunidad de WhatsApp
+    whatsappGroupLink: "https://chat.whatsapp.com/DHSCiuTFOz4G2jZJzpzwqA?s=cl&p=i&mlu=0",
+  };
+  document.getElementById('wa-group-link').href = CONFIG.whatsappGroupLink;
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('is-visible'));
+  }
+
+  // Form submit: envía el lead y desbloquea la guía
+  const form = document.getElementById('lead-form');
+  const errorBox = document.getElementById('form-error');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorBox.classList.add('hidden');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Enviando...';
+
+    const formData = new FormData(form);
+    try {
+      // mode: 'no-cors' es necesario para que Google Apps Script reciba el POST
+      // sin que el navegador bloquee la respuesta por CORS. No necesitamos leer
+      // la respuesta, solo que el dato llegue y quede guardado en la hoja.
+      await fetch(CONFIG.formEndpoint, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: formData
+      });
+    } catch (err) {
+      // No bloqueamos al usuario si el endpoint aún no está configurado.
+      console.warn('No se pudo enviar el lead al endpoint configurado:', err);
+    }
+
+    const guia = document.getElementById('guia-completa');
+    guia.classList.remove('hidden');
+    submitBtn.textContent = 'Guía desbloqueada ✓';
+    document.querySelectorAll('#guia-completa .reveal').forEach(el => {
+      const io2 = new IntersectionObserver((entries) => {
+        entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('is-visible'); io2.unobserve(en.target); } });
+      }, { threshold: 0.15 });
+      io2.observe(el);
+    });
+    guia.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+</script>
+
+</body>
+</html>
